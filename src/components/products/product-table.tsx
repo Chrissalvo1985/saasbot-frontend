@@ -235,7 +235,7 @@ export function ProductTable() {
               <select
                 className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900"
                 value={filters.status}
-                onChange={(e) => setFilters((f) => ({ ...f, status: e.target.value as any }))}
+                onChange={(e) => setFilters((f) => ({ ...f, status: e.target.value as "any" | "activo" | "borrador" }))}
               >
                 <option value="any">Todos</option>
                 <option value="activo">Activo</option>
@@ -247,7 +247,7 @@ export function ProductTable() {
               <select
                 className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900"
                 value={filters.stock}
-                onChange={(e) => setFilters((f) => ({ ...f, stock: e.target.value as any }))}
+                onChange={(e) => setFilters((f) => ({ ...f, stock: e.target.value as "any" | "in" | "out" }))}
               >
                 <option value="any">Todos</option>
                 <option value="in">Con stock</option>
