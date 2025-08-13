@@ -68,11 +68,6 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
             );
           })}
         </nav>
-        <div className="mt-8 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-3">
-          <p className="text-xs text-zinc-500 dark:text-zinc-400">
-            Multi‑tenant activo. 14 días de prueba restantes.
-          </p>
-        </div>
       </aside>
 
       {/* Backdrop for mobile drawer (does not cover header) */}
