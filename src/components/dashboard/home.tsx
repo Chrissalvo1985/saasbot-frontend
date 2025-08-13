@@ -140,7 +140,7 @@ function ActivityCard() {
       <h3 className="text-sm font-medium">Actividad</h3>
       <ul className="mt-3 space-y-2 text-sm">
         <li>Nuevo pedido #1024 por $45.990</li>
-        <li>Reserva creada para "Corte + Barba" mañana 10:30</li>
+        <li>Reserva creada para &quot;Corte + Barba&quot; mañana 10:30</li>
         <li>Stock bajo en SKU BZ-RED-42</li>
       </ul>
     </div>

@@ -387,7 +387,7 @@ function ExportModal({ open, onClose, rows }: ExportModalProps) {
             <select
               className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900"
               value={format}
-              onChange={(e) => setFormat(e.target.value as any)}
+              onChange={(e) => setFormat((e.target.value as "csv" | "json"))}
             >
               <option value="csv">CSV</option>
               <option value="json">JSON</option>
@@ -399,7 +399,7 @@ function ExportModal({ open, onClose, rows }: ExportModalProps) {
               <select
                 className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900"
                 value={delimiter}
-                onChange={(e) => setDelimiter(e.target.value as any)}
+                onChange={(e) => setDelimiter((e.target.value as "," | ";"))}
               >
                 <option value=",">Coma (,)</option>
                 <option value=";">Punto y coma (;)</option>
