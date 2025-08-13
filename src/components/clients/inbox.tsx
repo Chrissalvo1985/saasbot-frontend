@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import { MessageSquare, Phone, Star, User2 } from "lucide-react";
+import { Modal } from "@/components/ui/modal";
 
 type Conversation = {
   id: string;
@@ -23,19 +24,36 @@ const CONVOS: Conversation[] = Array.from({ length: 14 }).map((_, i) => ({
 export function Inbox() {
   const [selected, setSelected] = useState(CONVOS[0].id);
   const active = useMemo(() => CONVOS.find((c) => c.id === selected)!, [selected]);
+  const [openModal, setOpenModal] = useState<
+    | { type: "new" }
+    | { type: "assign" }
+    | { type: "call" }
+    | { type: "mark" }
+    | null
+  >(null);
 
   return (
     <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden grid grid-rows-[auto_1fr]">
       <div className="p-3 flex items-center justify-between">
         <div className="text-sm text-zinc-500">Inbox (Demo)</div>
         <div className="flex items-center gap-2">
-          <button className="rounded-md border px-3 py-2 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-900">Nuevo</button>
-          <button className="rounded-md border px-3 py-2 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-900">Asignar</button>
+          <button
+            className="rounded-md border px-3 py-2 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-900"
+            onClick={() => setOpenModal({ type: "new" })}
+          >
+            Nuevo
+          </button>
+          <button
+            className="rounded-md border px-3 py-2 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-900"
+            onClick={() => setOpenModal({ type: "assign" })}
+          >
+            Asignar
+          </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr_320px] min-h-[560px]">
+      <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr_320px] min-h-[560px] h-[70vh]">
         {/* List */}
-        <aside className="border-t lg:border-t-0 lg:border-r border-zinc-200 dark:border-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-800">
+        <aside className="border-t lg:border-t-0 lg:border-r border-zinc-200 dark:border-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-800 overflow-auto">
           {CONVOS.map((c) => (
             <button
               key={c.id}
@@ -101,11 +119,114 @@ export function Inbox() {
             </ul>
           </div>
           <div className="grid grid-cols-2 gap-2">
-            <button className="rounded-md border px-3 py-2 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-900 inline-flex items-center gap-2"><Phone className="size-4" /> Llamar</button>
-            <button className="rounded-md border px-3 py-2 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-900 inline-flex items-center gap-2"><Star className="size-4" /> Marcar</button>
+            <button
+              className="rounded-md border px-3 py-2 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-900 inline-flex items-center gap-2"
+              onClick={() => setOpenModal({ type: "call" })}
+            >
+              <Phone className="size-4" /> Llamar
+            </button>
+            <button
+              className="rounded-md border px-3 py-2 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-900 inline-flex items-center gap-2"
+              onClick={() => setOpenModal({ type: "mark" })}
+            >
+              <Star className="size-4" /> Marcar
+            </button>
           </div>
         </aside>
       </div>
+
+      {/* Modales */}
+      <Modal
+        open={openModal?.type === "new"}
+        onClose={() => setOpenModal(null)}
+        title="Nuevo cliente/conversación"
+        description="Crea un contacto y abre una conversación"
+      >
+        <form className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">Nombre</label>
+              <input className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900" placeholder="Ej. Juan Pérez" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Teléfono</label>
+              <input className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900" placeholder="+56 9 ..." />
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium mb-1">Nota inicial</label>
+              <input className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900" placeholder="Contexto, interés, etc." />
+            </div>
+          </div>
+          <div className="flex items-center justify-end gap-2">
+            <button type="button" onClick={() => setOpenModal(null)} className="rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-900">Cancelar</button>
+            <button type="button" onClick={() => setOpenModal(null)} className="rounded-md bg-zinc-900 px-3 py-2 text-sm text-white hover:opacity-95">Crear</button>
+          </div>
+        </form>
+      </Modal>
+
+      <Modal
+        open={openModal?.type === "assign"}
+        onClose={() => setOpenModal(null)}
+        title="Asignar conversación"
+        description="Selecciona un agente para esta conversación"
+      >
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Agente</label>
+            <select className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900">
+              <option>Ana</option>
+              <option>Carlos</option>
+              <option>María</option>
+            </select>
+          </div>
+          <div className="flex items-center justify-end gap-2">
+            <button type="button" onClick={() => setOpenModal(null)} className="rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-900">Cancelar</button>
+            <button type="button" onClick={() => setOpenModal(null)} className="rounded-md bg-zinc-900 px-3 py-2 text-sm text-white hover:opacity-95">Asignar</button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        open={openModal?.type === "call"}
+        onClose={() => setOpenModal(null)}
+        title="Iniciar llamada"
+        description={`Llamar a ${active.customer}`}
+      >
+        <div className="space-y-4 text-sm">
+          <div className="rounded-md border border-zinc-200 p-3 dark:border-zinc-800">{active.phone}</div>
+          <div className="flex items-center justify-end gap-2">
+            <button type="button" onClick={() => setOpenModal(null)} className="rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-900">Cancelar</button>
+            <button type="button" onClick={() => setOpenModal(null)} className="rounded-md bg-zinc-900 px-3 py-2 text-sm text-white hover:opacity-95">Llamar</button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        open={openModal?.type === "mark"}
+        onClose={() => setOpenModal(null)}
+        title="Marcar cliente"
+        description={`Etiquetas rápidas para ${active.customer}`}
+      >
+        <div className="space-y-4">
+          <div className="flex flex-wrap gap-2">
+            {[
+              "VIP",
+              "alta intención",
+              "incidencia",
+              "seguimiento",
+              "soporte",
+            ].map((t) => (
+              <label key={t} className="inline-flex items-center gap-2 rounded-md border border-zinc-200 px-2 py-1 text-xs dark:border-zinc-800">
+                <input type="checkbox" className="accent-zinc-900 dark:accent-zinc-100" /> {t}
+              </label>
+            ))}
+          </div>
+          <div className="flex items-center justify-end gap-2">
+            <button type="button" onClick={() => setOpenModal(null)} className="rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-900">Cancelar</button>
+            <button type="button" onClick={() => setOpenModal(null)} className="rounded-md bg-zinc-900 px-3 py-2 text-sm text-white hover:opacity-95">Guardar</button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

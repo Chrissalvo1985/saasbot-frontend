@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Bot, Package, CalendarDays, BarChart3, Settings, Home, BookOpenText, Users } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 
 type NavItem = {
   label: string;
@@ -35,7 +36,11 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
       >
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <div className="size-8 rounded-md bg-zinc-900 dark:bg-zinc-100" />
+            <div className="grid size-11 place-items-center rounded-full bg-zinc-100 dark:bg-zinc-900 ring-1 ring-zinc-200 dark:ring-zinc-800">
+              <div className="relative size-9">
+                <Image src="/logo.png" alt="SaaSBot" fill sizes="36px" className="object-contain" priority />
+              </div>
+            </div>
             <span className="font-semibold">SaaSBot</span>
           </div>
           <button className="lg:hidden" onClick={() => setOpen(false)} aria-label="Cerrar menú">
@@ -91,7 +96,6 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
               </h1>
             </div>
             <div className="flex items-center gap-2">
-              <TenantSelector />
               <UserMenu />
             </div>
           </div>
@@ -102,14 +106,7 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function TenantSelector() {
-  return (
-    <button className="inline-flex items-center gap-2 rounded-md border border-zinc-200 dark:border-zinc-800 px-3 py-1.5 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-900">
-      <span className="size-2 rounded-full bg-emerald-500" />
-      <span>Demo Store</span>
-    </button>
-  );
-}
+ 
 
 function UserMenu() {
   return (
