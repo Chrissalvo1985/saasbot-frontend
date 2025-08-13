@@ -24,10 +24,6 @@ export default function AjustesPage() {
             <IntegrationCard name="Pago por link" status="Configurar" onClick={() => setOpenModal({ type: "pay" })} />
           </div>
         </section>
-        <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 p-4">
-          <h3 className="text-sm font-medium">Tenants</h3>
-          <div className="mt-3 text-sm text-zinc-500">Demo Store (ID: tnt_demo)</div>
-        </section>
         
 
         <Modal
