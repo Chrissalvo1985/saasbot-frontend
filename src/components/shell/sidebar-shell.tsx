@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Bot, Package, CalendarDays, BarChart3, Settings, Home, BookOpenText, Users } from "lucide-react";
+import { Menu, X, Bot, Package, CalendarDays, BarChart3, Settings, Home, BookOpenText, Users, FileText } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -19,6 +19,7 @@ const navItems: NavItem[] = [
   { label: "Agenda", href: "/agenda", icon: CalendarDays },
   { label: "Métricas", href: "/metricas", icon: BarChart3 },
   { label: "Clientes", href: "/clientes", icon: Users },
+  { label: "Base de Conocimiento", href: "/kb", icon: FileText },
   { label: "Ajustes", href: "/ajustes", icon: Settings },
 ];
 

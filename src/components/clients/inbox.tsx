@@ -34,7 +34,7 @@ export function Inbox() {
 
   return (
     <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden grid grid-rows-[auto_1fr]">
-      <div className="p-3 flex items-center justify-between">
+      <div className="p-3 flex items-center justify-between bg-gradient-to-r from-sky-50/70 to-transparent dark:from-sky-900/20 rounded-t-xl">
         <div className="text-sm text-zinc-500">Inbox (Demo)</div>
         <div className="flex items-center gap-2">
           <button
@@ -53,7 +53,7 @@ export function Inbox() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr_320px] min-h-[560px] h-[70vh]">
         {/* List */}
-        <aside className="border-t lg:border-t-0 lg:border-r border-zinc-200 dark:border-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-800 overflow-auto">
+        <aside className="border-t lg:border-t-0 lg:border-r border-zinc-200 dark:border-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-800 overflow-auto bg-gradient-to-b from-zinc-50/50 to-transparent dark:from-zinc-900/20">
           {CONVOS.map((c) => (
             <button
               key={c.id}
@@ -72,7 +72,18 @@ export function Inbox() {
                   <div className="text-xs text-zinc-500 truncate">{c.lastMessage}</div>
                   <div className="mt-1 flex flex-wrap gap-1">
                     {c.tags?.map((t) => (
-                      <span key={t} className="inline-flex items-center gap-1 rounded-full bg-zinc-100 text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 px-2 py-0.5 text-[10px] border border-zinc-200 dark:border-zinc-800">{t}</span>
+                      <span
+                        key={t}
+                        className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] border ${
+                          t === "lead" || t === "alta intención"
+                            ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-300 dark:border-emerald-800"
+                            : t === "soporte"
+                            ? "bg-sky-50 text-sky-700 border-sky-200 dark:bg-sky-900/20 dark:text-sky-300 dark:border-sky-800"
+                            : "bg-zinc-100 text-zinc-700 border-zinc-200 dark:bg-zinc-900 dark:text-zinc-300 dark:border-zinc-800"
+                        }`}
+                      >
+                        {t}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -82,7 +93,7 @@ export function Inbox() {
         </aside>
         {/* Chat */}
         <section className="border-t border-zinc-200 dark:border-zinc-800 flex flex-col">
-          <div className="p-3 border-b border-zinc-200 dark:border-zinc-800 flex items-center gap-3">
+          <div className="p-3 border-b border-zinc-200 dark:border-zinc-800 flex items-center gap-3 bg-gradient-to-r from-emerald-50/60 to-transparent dark:from-emerald-900/20">
             <div className="size-9 rounded-full bg-gradient-to-br from-zinc-200 to-zinc-400 dark:from-zinc-700 dark:to-zinc-900" />
             <div className="min-w-0">
               <div className="font-medium">{active.customer}</div>
@@ -111,7 +122,7 @@ export function Inbox() {
               <div className="text-zinc-500">Estado</div><div>Lead</div>
             </div>
           </div>
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-3">
+          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-3 bg-gradient-to-br from-violet-50/60 to-transparent dark:from-violet-900/10">
             <div className="text-sm font-medium mb-2">Notas</div>
             <ul className="text-sm list-disc pl-5 space-y-1 text-zinc-600 dark:text-zinc-300">
               <li>Prefiere retiro en tienda</li>
