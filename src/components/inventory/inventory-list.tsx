@@ -36,6 +36,16 @@ export function InventoryList() {
           Solo bajo stock
         </label>
       </div>
+      
+      {/* Table Headers */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-2 px-3 py-3 text-xs font-medium text-zinc-500 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/20">
+        <div>SKU</div>
+        <div>Producto</div>
+        <div className="hidden md:block">En Mano</div>
+        <div className="hidden md:block">Reservado</div>
+        <div className="justify-self-end">Estado</div>
+      </div>
+      
       <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
         {pageRows.map((r) => (
           <div key={r.sku} className="grid grid-cols-2 md:grid-cols-5 gap-2 px-3 py-2 text-sm items-center">
